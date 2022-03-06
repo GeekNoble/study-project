@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     快速排序
+     */
+    let k = 0
+    function quicksort(arr, left, right) {
+        var i, j, temp, t;
+        if (left > right) {
+            return
+        }
+        i = left;
+        j = right;
+        temp = arr[left];
+
+        while (i != j) {
+            while (i < j && arr[j] >= temp) {
+                j--
+            }
+            while (i < j && arr[i] <= temp) {
+                i++
+            }
+            if (i < j) {
+                t = arr[i];
+                arr[i] = arr[j];
+                arr[j] = t
+            }
+            console.log(arr.toString() + "___"+ k++)
+        }
+        arr[left] = arr[i]
+        arr[i] = temp
+        quicksort(arr, left, i - 1);
+        quicksort(arr, i + 1, right);
+    }
+
+    var arr = [4,2,6,3,24,51,32,44,23,11,23]
+    var arr2 = [4,2,3,5,6]
+    quicksort(arr, 0, arr.length - 1)
+    console.log(arr)
+</script>
+</body>
+</html>
