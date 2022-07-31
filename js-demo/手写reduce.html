@@ -1,0 +1,97 @@
+<html>
+  <head></head>
+  <script>
+    Array.prototype.myReduce = function(cb, initialValue) {
+      let arr = this
+      let total = initialValue || arr[0]
+
+      for (let i = initialValue ? 0 : 1; i < arr.length; i++) {
+        total = cb(total, arr[i], i, arr)
+      }
+      return total
+    }
+
+    // console.log([1,2,3,4].myReduce(((total, item) => total + item), 10))
+
+
+
+    async function simplePoller(queryFn, callback) {
+      async function sleep(time) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve()
+          }, time)
+        })
+      }
+      let time = 1000
+      let result
+
+      while (result !== true) {
+        await sleep(time)
+        result = queryFn()
+        time = time * 1.5
+        console.log(time)
+      }
+      callback()
+    }
+
+    let interval = 1
+
+    // simplePoller(() => {
+    //   console.log(`执行了${interval}次`)
+    //   if (interval++ > 3) {
+    //     return true
+    //   }
+    // }, () => {
+    //   console.log('执行完成')
+    // })
+
+
+
+
+
+
+
+
+
+    function eventBus() {
+      this.events = []
+    }
+
+    eventBus.prototype.on = function(name,fn) {
+      this.events.push({
+        name,
+        fn
+      })
+    }
+
+    eventBus.prototype.emit = function(name) {
+      this.events.forEach((item, index) => {
+        if (item.name === name) {
+          item.fn()
+        }
+        if (item.isOnce) {
+          this.events.splice(index, 1)
+        }
+      })
+    }
+
+    eventBus.prototype.once = function(name, fn) {
+      this.events.push({
+        name,
+        isOnce: true,
+        fn
+      })
+    }
+
+    eventBus.prototype.delete = function(name) {
+      this.events.forEach((item, index) => {
+        if (item.name === name) {
+          this.events.splice()
+        }
+      })
+    }
+
+  </script>
+  <body></body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+  <head></head>
+  <script>
+    function throttle(fn, wait) {
+      let preTime = 0
+      
+      return function() {
+        let args = arguments
+        let context = this
+        let nowTime = +new Date()
+        if (nowTime - preTime > wait) {
+          fn.call(context, args)
+          preTime = nowTime
+        }
+      }
+    }
+
+    function debounce(fn, wait) {
+      let timer = null
+
+      return function() {
+        let args = arguments
+        let context = this
+        if (timer) {
+          clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+          fn.call(context, args)
+          timer = null
+        }, wait)
+
+      }
+    }
+  </script>
+  <body>
+
+  </body>
+</html>

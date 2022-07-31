@@ -1,0 +1,23 @@
+<html>
+  <head></head>
+  <script>
+    function myInstanceof(target, origin) {
+      if (typeof target !== 'object' || target === null) {
+        return false
+      }
+      if (typeof origin !== 'function' ) {
+        throw new TypeError("origin must be function");
+      }
+
+      let proto = Object.getPrototypeOf(target)
+      while(proto) {
+        if (proto === origin.protoType) {
+          return true
+        }
+        proto = Object.getPrototypeOf(proto)
+      }
+      return false
+    }
+  </script>
+  <body></body>
+</html>
