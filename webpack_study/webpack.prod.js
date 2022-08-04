@@ -40,12 +40,12 @@ module.exports = merge(base, {
         // include: resolve('src'),
         exclude: /node_modules/,
         use: [
-          // {
-          //   loader: 'thread-loader', // 开启多进程打包
-          //   options: {
-          //     worker: 3,
-          //   }
-          // },
+          {
+            loader: 'thread-loader', // 开启多进程打包
+            options: {
+              worker: 3,
+            }
+          },
           {
             loader: "babel-loader",
             options: {
