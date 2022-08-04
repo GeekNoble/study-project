@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack server --progress --config ./webpack.config.js",
+    "build": "webpack --config ./webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -23,6 +24,7 @@
   "dependencies": {
     "clean-webpack-plugin": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
     "vue": "^3.2.36",
     "vue-loader": "^17.0.0"
   }

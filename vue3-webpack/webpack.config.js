@@ -2,7 +2,7 @@ const path = require('path')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader/dist/index')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
 	mode: 'development',
 	entry: path.resolve(__dirname, './src/main.js'),
@@ -15,7 +15,8 @@ module.exports = {
 			{
 				test: /\.[s]?css$/,
 				use: [
-					'style-loader',
+					MiniCssExtractPlugin.loader,
+					// 'style-loader',
 					'css-loader'
 				]
 			},
@@ -34,7 +35,6 @@ module.exports = {
 	},
 
 	devServer: {
-		// contentBase: path.resolve(__dirname, './dist'),
 		// static: {
 		// 	directory: path.resolve(__dirname, 'public')
 		// },
@@ -49,7 +49,10 @@ module.exports = {
 			filename: 'index.html',
 			title: 'vue'
 		}),
+		new MiniCssExtractPlugin({
+			filename: 'css/[name].css'
+		}),
 		new VueLoaderPlugin(),
-		new CleanWebpackPlugin()
+		new CleanWebpackPlugin(),
 	]
 }

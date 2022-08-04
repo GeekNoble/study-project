@@ -44,3 +44,8 @@ export default defineComponent({
 
 });
 </script>
+<style scoped>
+.box {
+  color: red;
+}
+</style>

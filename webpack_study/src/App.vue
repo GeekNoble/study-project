@@ -1,21 +1,5 @@
 <template>
-  <!-- <a-carousel
-    :style="{
-      width: '600px',
-      height: '240px',
-    }"
-    :default-current="2"
-    @change="handleChange"
-  >
-    <a-carousel-item v-for="image in images">
-      <img
-        :src="image"
-        :style="{
-          width: '100%',
-        }"
-      />
-    </a-carousel-item>
-  </a-carousel> -->
+  
   <el-carousel height="150px">
     <el-carousel-item v-for="image in images">
       <img

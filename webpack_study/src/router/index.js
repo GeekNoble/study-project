@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import a1 from '@/views/aRouter/a1.vue'
 //路由数组
 const routes = [
   {
@@ -9,7 +10,7 @@ const routes = [
     //基本格式
     path: "/a1",
     name: "a1",
-    component: () => import(/* webpackChunkName: "a1" */ '@/views/aRouter/a1.vue'),
+    component: a1,
     children: [
       {
         path: 'a2',

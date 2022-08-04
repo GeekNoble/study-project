@@ -19,11 +19,24 @@
 
 module.exports = {
 	presets: [
-		["@babel/preset-env", {
-			"targets": {
-				"browsers": ["last 2 versions"] // 最近 2 个版本的浏览器
+		[
+			"@babel/preset-env", 
+			{
+				"targets": {
+					"browsers": ["last 2 versions"] // 最近 2 个版本的浏览器
+				},
+				// module: false,  //Tree-shaking 作用是剔除没有使用的代码，以降低包的体积
 			}
-		}]
+			// {
+      //   module: false,
+      //   useBuiltIns: "entry",
+      //   corejs: "3.9.1",
+      //   targets: {
+      //     chrome: "58",
+      //     ie: "11",
+      //   },
+      // },
+		]
 	],
 	plugins: [
 	

@@ -28,3 +28,8 @@ export default defineComponent({
 
 });
 </script>
+<style scoped>
+.box2 {
+  color: red;
+}
+</style>

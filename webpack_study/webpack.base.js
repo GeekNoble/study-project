@@ -1,8 +1,8 @@
 const path = require('path')
 const htmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')  // 样式抽离插件
 const { VueLoaderPlugin } = require('vue-loader/dist/index')
+const PurgecssPlugin = require('purgecss-webpack-plugin') // 去除多余CSS
+const glob = require('glob'); // 文件匹配模式
 
 console.log('process.env.NODE_ENV=', process.env.NODE_ENV) // 打印环境变量
 
@@ -13,19 +13,11 @@ const config = {
 		filename: 'js/[name][chunkhash:6].js',
 		path: path.join(__dirname, 'dist')  // 输出文件目录
 	},
-	devtool: 'source-map',
+	// devtool: 'source-map',
 	module: {
+		// noParse: /jquery|lodash/,  // 不需要解析依赖的第三方大型类库等，可以通过这个字段进行配置，以提高构建速度
 		rules: [
-			{
-				test: /\.[s]?css$/,
-				use: [
-					'vue-style-loader',
-					// MiniCssExtractPlugin.loader, // 添加 loader
-					'css-loader', 
-					'postcss-loader', 
-					// 'sass-loader'
-				]
-			},
+			
 			// {
       //   test: /\.(jpe?g|png|gif)$/i,
       //   use:[
@@ -98,31 +90,33 @@ const config = {
     extensions: ['.js','.ts', 'tsx'],
     alias: {
       '@': path.join(__dirname, 'src')
-    }
+    },
+		// modules: [path.join(__dirname, 'src'), 'node_modules'],  // 告诉 webpack 优先 src 目录下查找需要解析的文件，会大大节省查找时间
   },
+
+	// 通过配置 cache 缓存生成的 webpack 模块和 chunk，来改善构建速度。 webpack4 为hard-source-webpack-plugin
+	cache: {
+    type: 'filesystem',
+		allowCollectingMemory: true,
+  },
+
+	// 这样可以以import方式引入jqery等外部依赖，需要在html引入js链接,节省打包构建
+	externals: {
+    // jquery: 'jQuery',
+		vue: 'Vue'
+  },
+
+
 	plugins: [
-		new MiniCssExtractPlugin({
-			filename: 'css/[name].[hash:8].css'
-		}),
 		new htmlWebpackPlugin({
 			template: './index.html',
 			filename: 'index.html'
 		}),
 		new VueLoaderPlugin(),
-		new CleanWebpackPlugin(),
+			// new PurgecssPlugin({
+			// 	paths: glob.sync(`${path.resolve('src')}/**/*`, {nodir: true})
+			// }),
 	],
-	devServer: {
-		static: {
-			directory: path.resolve(__dirname, 'public')
-		}, // 静态文件目录
-		compress: true, // 是否启动压缩gzip
-		port: 8080
-	}
+	
 }
-// module.exports = (env, argv) => {
-// 	console.log('argv.mode=',argv.mode) // 打印 mode(模式) 值
-//   // 这里可以通过不同的模式修改 config 配置
-// 	return config
-// }
-
 module.exports = config
