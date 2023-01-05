@@ -57,6 +57,8 @@ module.exports = merge(base, {
     ],
   },
   optimization: {
+    // moduleIds: 'deterministic',   // 保证 vendor hash 不发生变化
+    // runtimeChunk: "single",
     minimize: true,
     minimizer: [
       // 添加 css 压缩配置
@@ -106,6 +108,12 @@ module.exports = merge(base, {
           test: /[\\/]ant-design-vue[\\/]/,
           priority: 3
         },
+        photoPreview: {
+          chunks: 'all',
+          name: 'photo-preview',
+          test: /[\\/]vue3-photo-preview[\\/]/,
+          priority: 3
+        }
         // vue: {
         //   chunks: 'all',
         //   name: 'vue',

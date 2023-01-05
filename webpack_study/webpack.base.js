@@ -101,10 +101,10 @@ const config = {
   },
 
 	// 这样可以以import方式引入jqery等外部依赖，需要在html引入js链接,节省打包构建
-	externals: {
-    // jquery: 'jQuery',
-		vue: 'Vue'
-  },
+	// externals: {
+  //   // jquery: 'jQuery',
+	// 	vue: 'Vue'
+  // },
 
 
 	plugins: [
